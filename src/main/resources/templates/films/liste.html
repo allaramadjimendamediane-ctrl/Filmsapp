@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Liste des films</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="/films">
+            Gestion des films
+        </a>
+
+        <div>
+
+            <a href="/categories"
+               class="btn btn-outline-light">
+                Catégories
+            </a>
+
+            <a href="/films"
+               class="btn btn-outline-light">
+                Films
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<div class="container mt-5">
+
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h1>Liste des films</h1>
+
+        <a href="/films/ajouter"
+           class="btn btn-primary">
+            + Ajouter un film
+        </a>
+
+    </div>
+
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Titre</th>
+
+            <th>Réalisateur</th>
+
+            <th>Année</th>
+
+            <th>Catégorie</th>
+
+            <th>Actions</th>
+
+        </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        <tr th:each="film : ${films}">
+
+            <td th:text="${film.id}">
+                1
+            </td>
+
+
+            <td th:text="${film.titre}">
+                Inception
+            </td>
+
+
+            <td th:text="${film.realisateur}">
+                Christopher Nolan
+            </td>
+
+
+            <td th:text="${film.annee}">
+                2010
+            </td>
+
+
+            <td th:text="${film.categorie.nom}">
+                Science-fiction
+            </td>
+
+
+            <td>
+
+                <a th:href="@{/films/modifier/{id}(id=${film.id})}"
+                   class="btn btn-warning btn-sm">
+                    Modifier
+                </a>
+
+
+                <a th:href="@{/films/supprimer/{id}(id=${film.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Voulez-vous vraiment supprimer ce film ?');">
+                    Supprimer
+                </a>
+
+            </td>
+
+        </tr>
+
+
+        <tr th:if="${#lists.isEmpty(films)}">
+
+            <td colspan="6"
+                class="text-center">
+
+                Aucun film enregistré.
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+</body>
+</html>
